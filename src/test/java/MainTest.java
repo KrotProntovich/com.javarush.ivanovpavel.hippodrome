@@ -13,11 +13,6 @@ class MainTest {
     @Disabled
     void main() {
         String[] args = {};
-        assertTimeout(ofSeconds(22), new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                Main.main(args);
-            }
-        });
+        assertTimeout(ofSeconds(22), () -> Main.main(args));
     }
 }

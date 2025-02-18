@@ -14,30 +14,28 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HippodromeTest {
 
-    List<Horse> mokList = Mockito.mock(ArrayList.class);
-
     //a. Конструктор
     @Test
-    public void nullInHippodrome() {
+    public void nullInGetHippodrome() {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Hippodrome(null));
     }
 
     @Test
-    public void nullInHippodrome_ReturnMessage() {
+    public void nullInGetHippodrome_ReturnMessage() {
         Throwable exception = assertThrows(IllegalArgumentException.class,
                 () -> new Hippodrome(null));
         assertEquals("Horses cannot be null.", exception.getMessage());
     }
 
     @Test
-    public void emptyListInHippodrome() {
+    public void emptyListInGetHippodrome() {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Hippodrome(new ArrayList<Horse>()));
     }
 
     @Test
-    public void emptyListInHippodrome_ReturnMessage() {
+    public void emptyListInGetHippodrome_ReturnMessage() {
         Throwable exception = assertThrows(IllegalArgumentException.class,
                 () -> new Hippodrome(new ArrayList<Horse>()));
         assertEquals("Horses cannot be empty.", exception.getMessage());
@@ -79,12 +77,15 @@ class HippodromeTest {
         Mockito.when(mockHorse1.getDistance()).thenReturn(2.0);
         Horse mockHorse2 = Mockito.mock(Horse.class);
         Mockito.when(mockHorse2.getDistance()).thenReturn(5.0);
+        Horse mockHorse3 = Mockito.mock(Horse.class);
+        Mockito.when(mockHorse3.getDistance()).thenReturn(3.0);
         List<Horse> horseList = new ArrayList<>();
         horseList.add(mockHorse1);
         horseList.add(mockHorse2);
+        horseList.add(mockHorse3);
 
         Hippodrome hippodrome = new Hippodrome(horseList);
 
-        assertEquals(mockHorse2, hippodrome.getWinner());
+        assertSame(mockHorse2, hippodrome.getWinner());// если нужен тотже объект
     }
 }
